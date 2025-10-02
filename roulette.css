@@ -1,0 +1,15 @@
+.container{
+    justify-self: left;
+}
+.table{
+    justify-self: left;
+}
+.btn {
+    border-radius: 2px;
+}
+
+.btn:active {
+    border-radius: 2px;
+    color: white;
+    border-color: white;
+}
