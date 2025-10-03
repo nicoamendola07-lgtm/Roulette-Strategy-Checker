@@ -18,17 +18,22 @@ function generateSpin() {
     let spinWhatColor = ""
     document.getElementById("spinOutput").textContent = spin;
     if (spin == "0" || spin == "00") {
-        spinWhatColor = 'green';
+        spinWhatColor = 'Green';
     }
     else if (parseInt(spin) % 2 == 0) {
-        spinWhatColor = 'red';
+        spinWhatColor = 'Red';
     } else {
-        spinWhatColor = 'black';
+        spinWhatColor = 'Black';
     }
     document.getElementById("spinColor").textContent = spinWhatColor
     bettingLogic(spin);
 }
 function bettingLogic(spin) {
+    var totalOfBets = betOne + betTwo;
+    if (totalOfBets >= bank) {
+        bankrupt();
+        return;
+    }
     if (rowBetContents.includes(spin) && middleBetContents.includes(spin)) {
         profit = (betOne + betTwo) *2;
         bank = bank + profit;
@@ -76,6 +81,10 @@ function bettingLogic(spin) {
         document.getElementById("profit").textContent = profit;
         streak();
     }
+    if (bank <= 0) {
+        bankrupt();
+        return;
+    }
 }
 function streak() {
     if (loseStreak > maxLossStreak) {
@@ -90,7 +99,12 @@ function streak() {
     } else {
         document.getElementById("winStreak").textContent = maxWinStreak;
     }
-} 
+}
+function bankrupt() {
+    document.getElementById("bankAccount").textContent = 0;
+    document.getElementById("result").textContent = "Game Over! You're bankrupt"
+    document.getElementById("profit").textContent = "You lost all your money"
+}
 function clearAll() {
     document.getElementById("bankAccount").textContent = "";
     document.getElementById("profit").textContent = "";
@@ -104,3 +118,4 @@ function clearAll() {
     bank = 1000;
     profit = 0;
 } 
+
